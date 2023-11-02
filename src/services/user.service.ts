@@ -1,4 +1,5 @@
 import UserModel, {UserInput, UserDocument} from "../models/user.model";
+import jwt  from "jsonwebtoken";
 
 class UserService {
     public async create(userInput: UserInput): Promise<UserDocument> {
@@ -47,6 +48,16 @@ class UserService {
             throw error;
         }        
 
+    }
+
+    public async generateToken(user: UserDocument): Promise<String> {
+        try {
+            const token = await jwt.sign({user_id: user.id, email: user.email}, process.env.JWT_SECRET || 'secret', {expiresIn: "5m"});
+
+            return token;
+        } catch (error) {
+            throw error;            
+        }
     }
 
 }

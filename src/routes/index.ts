@@ -6,7 +6,7 @@ const routes = (app: Express) => {
   app.get("/users", userController.findAll);
   app.get("/users/:id", userController.findById);
   app.put("/users/:id", userController.update);
-  app.post("login", userController.login);
+  app.post("/login", userController.login);
 
 };
 
