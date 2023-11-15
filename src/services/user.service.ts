@@ -50,6 +50,15 @@ class UserService {
 
     }
 
+    public async delete(id: String): Promise<UserDocument | null> {
+        try {
+            return await UserModel.findOneAndDelete({_id: id});
+        }  catch (error) {
+            throw error;
+        }        
+
+    }    
+
     public async generateToken(user: UserDocument): Promise<String> {
         try {
             const token = await jwt.sign({user_id: user.id, email: user.email}, process.env.JWT_SECRET || 'secret', {expiresIn: "5m"});

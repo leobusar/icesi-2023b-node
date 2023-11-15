@@ -58,6 +58,17 @@ class UserController {
             res.status(500).json(error);
         }
     }
+    public async delete(req: Request, res: Response) {
+        try {       
+            const user: UserDocument | null = await userService.delete(req.params.id)
+            if(user === null){
+                return res.status(404).json({message: "User not found"});
+            }             
+            return res.status(200).json(user)
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    }
 
     public async login(req: Request, res: Response) {
         try {
